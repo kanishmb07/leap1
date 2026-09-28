@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f7f2">
+    <title>Log in | TaskNest</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/api.js" defer></script>
+    <script src="js/auth.js" defer></script>
+</head>
+<body class="auth-page">
+    <header class="site-header auth-header">
+        <a class="brand" href="index.html" aria-label="TaskNest home">
+            <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+            <span>TaskNest</span>
+        </a>
+        <a class="text-link" href="index.html">Back to home</a>
+    </header>
+    <main class="auth-layout login-layout">
+        <section class="auth-aside">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> PICK UP WHERE YOU LEFT OFF</p>
+            <h1>Your next step<br>is <span>waiting.</span></h1>
+            <p>Come back to your lists and make today count, one task at a time.</p>
+        </section>
+        <section class="auth-form-wrap" aria-labelledby="login-heading">
+            <div class="auth-form-heading">
+                <p class="eyebrow">WELCOME BACK</p>
+                <h2 id="login-heading">Log in to TaskNest</h2>
+                <p>Enter your account details to continue.</p>
+            </div>
+            <form id="login-form" class="form-stack" novalidate>
+                <label for="login-email">Email</label>
+                <input id="login-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+
+                <label for="login-password">Password</label>
+                <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+
+                <p id="login-message" class="form-message" role="status" aria-live="polite"></p>
+                <button class="button button-dark button-wide" type="submit">Log in <span aria-hidden="true">→</span></button>
+            </form>
+            <p class="auth-switch">New to TaskNest? <a href="register.html">Create an account</a></p>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f7f2">
+    <title>Alerts | TaskNest</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/api.js" defer></script>
+    <script src="js/alerts.js" defer></script>
+</head>
+<body class="dashboard-page alerts-page">
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="dashboard.html" aria-label="TaskNest dashboard">
+                <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>TaskNest</span>
+            </a>
+            <button id="mobile-nav-toggle" class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="alert-navigation" aria-label="Open navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <p class="sidebar-label">WORKSPACE</p>
+            <nav id="alert-navigation" class="side-nav side-nav-alerts" aria-label="Task views">
+                <a class="nav-item nav-link" href="dashboard.html"><span class="nav-symbol nav-symbol-overview" aria-hidden="true"></span>Dashboard</a>
+                <a class="nav-item nav-link" href="dashboard.html#tasklists-section"><span class="nav-symbol nav-symbol-tasks" aria-hidden="true"></span>Task Lists</a>
+                <a class="nav-item nav-link is-active" href="alerts.html" aria-current="page"><span class="nav-symbol nav-symbol-overdue" aria-hidden="true"></span>Alerts<span class="nav-badge" data-alert-badge hidden>0</span></a>
+            </nav>
+            <div class="sidebar-bottom">
+                <span class="sidebar-note">Make room for<br>what matters.</span>
+                <button id="logout-button" class="logout-button" type="button"><span aria-hidden="true">↪</span> Log out</button>
+            </div>
+        </aside>
+
+        <main class="dashboard-main alerts-main">
+            <header class="dashboard-header">
+                <div>
+                    <p class="eyebrow" id="alerts-date-label">YOUR PERSONAL WORKSPACE</p>
+                    <h1 id="alerts-welcome">Task alerts</h1>
+                    <p class="dashboard-subtitle">A clear view of tasks that need attention.</p>
+                </div>
+                <button id="mobile-logout-button" class="button button-quiet mobile-logout" type="button">Log out</button>
+            </header>
+
+            <section class="alert-summary-section" aria-labelledby="alert-summary-heading">
+                <div class="section-heading">
+                    <div><p class="eyebrow">YOUR NEXT STEPS</p><h2 id="alert-summary-heading">At a glance</h2></div>
+                    <span id="alert-summary-date" class="updated-label">Loading…</span>
+                </div>
+                <div class="alert-summary-grid" aria-live="polite">
+                    <article class="alert-summary-card summary-overdue"><span>Overdue</span><strong id="alert-count-overdue">—</strong></article>
+                    <article class="alert-summary-card summary-today"><span>Due today</span><strong id="alert-count-today">—</strong></article>
+                    <article class="alert-summary-card summary-tomorrow"><span>Due tomorrow</span><strong id="alert-count-tomorrow">—</strong></article>
+                    <article class="alert-summary-card summary-upcoming"><span>Upcoming</span><strong id="alert-count-upcoming">—</strong></article>
+                </div>
+                <p id="alerts-message" class="inline-message" role="status" aria-live="polite">Loading your alerts…</p>
+                <p id="alert-action-message" class="alert-action-message" role="status" aria-live="polite"></p>
+            </section>
+
+            <section class="alert-groups" aria-label="Tasks requiring attention">
+                <section class="alert-group" aria-labelledby="overdue-heading">
+                    <div class="alert-group-heading"><span class="alert-heading-mark mark-overdue" aria-hidden="true">!</span><div><p class="eyebrow">PAST DUE</p><h2 id="overdue-heading">Overdue tasks</h2></div><span id="overdue-group-count" class="alert-group-count">—</span></div>
+                    <div id="overdue-alert-list" class="alert-task-list"></div>
+                    <p id="overdue-empty" class="alert-empty" hidden>No overdue tasks 🎉</p>
+                </section>
+                <section class="alert-group" aria-labelledby="today-heading">
+                    <div class="alert-group-heading"><span class="alert-heading-mark mark-today" aria-hidden="true">●</span><div><p class="eyebrow">DUE DATE</p><h2 id="today-heading">Due today</h2></div><span id="today-group-count" class="alert-group-count">—</span></div>
+                    <div id="today-alert-list" class="alert-task-list"></div>
+                    <p id="today-empty" class="alert-empty" hidden>No tasks due today.</p>
+                </section>
+                <section class="alert-group" aria-labelledby="tomorrow-heading">
+                    <div class="alert-group-heading"><span class="alert-heading-mark mark-tomorrow" aria-hidden="true">◷</span><div><p class="eyebrow">COMING UP</p><h2 id="tomorrow-heading">Due tomorrow</h2></div><span id="tomorrow-group-count" class="alert-group-count">—</span></div>
+                    <div id="tomorrow-alert-list" class="alert-task-list"></div>
+                    <p id="tomorrow-empty" class="alert-empty" hidden>No tasks due tomorrow.</p>
+                </section>
+                <section class="alert-group" aria-labelledby="upcoming-heading">
+                    <div class="alert-group-heading"><span class="alert-heading-mark mark-upcoming" aria-hidden="true">→</span><div><p class="eyebrow">AFTER TOMORROW</p><h2 id="upcoming-heading">Upcoming tasks</h2></div><span id="upcoming-group-count" class="alert-group-count">—</span></div>
+                    <div id="upcoming-alert-list" class="alert-task-list"></div>
+                    <p id="upcoming-empty" class="alert-empty" hidden>No upcoming tasks.</p>
+                </section>
+            </section>
+            <footer class="dashboard-footer"><span>TaskNest</span><span>Steady progress, at your pace.</span></footer>
+        </main>
+    </div>
+</body>
+</html>

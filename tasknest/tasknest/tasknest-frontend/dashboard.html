@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f7f2">
+    <title>Dashboard | TaskNest</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/api.js" defer></script>
+    <script src="js/alerts.js" defer></script>
+    <script src="js/dashboard.js" defer></script>
+</head>
+<body class="dashboard-page">
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="dashboard.html" aria-label="TaskNest dashboard">
+                <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>TaskNest</span>
+            </a>
+            <button id="mobile-nav-toggle" class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="task-navigation" aria-label="Open navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <p class="sidebar-label">WORKSPACE</p>
+            <nav id="task-navigation" class="side-nav side-nav-alerts" aria-label="Task views">
+                <button class="nav-item is-active" type="button" data-view="dashboard"><span class="nav-symbol nav-symbol-overview" aria-hidden="true"></span>Dashboard</button>
+                <button class="nav-item" type="button" data-view="tasks"><span class="nav-symbol nav-symbol-tasks" aria-hidden="true"></span>Task Lists</button>
+                <a class="nav-item nav-link" href="alerts.html"><span class="nav-symbol nav-symbol-overdue" aria-hidden="true"></span>Alerts<span class="nav-badge" data-alert-badge hidden>0</span></a>
+            </nav>
+            <div class="sidebar-bottom">
+                <span class="sidebar-note">Make room for<br>what matters.</span>
+                <button id="logout-button" class="logout-button" type="button"><span aria-hidden="true">↪</span> Log out</button>
+            </div>
+        </aside>
+
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div>
+                    <p class="eyebrow" id="today-label">YOUR PERSONAL WORKSPACE</p>
+                    <h1 id="welcome-heading">Welcome back</h1>
+                    <p class="dashboard-subtitle">A clear view of what’s moving forward.</p>
+                </div>
+                <button id="mobile-logout-button" class="button button-quiet mobile-logout" type="button">Log out</button>
+            </header>
+
+            <section id="stats-section" class="stats-section" aria-labelledby="stats-heading">
+                <div class="section-heading">
+                    <div><p class="eyebrow">AT A GLANCE</p><h2 id="stats-heading">Your progress</h2></div>
+                    <span id="stats-updated" class="updated-label">Loading your stats…</span>
+                </div>
+                <div class="stats-grid" aria-live="polite">
+                    <article class="stat-card stat-total"><span class="stat-label">Total tasks</span><strong id="stat-total" class="stat-value">—</strong><span class="stat-caption">Across your lists</span></article>
+                    <article class="stat-card stat-completed"><span class="stat-label">Completed</span><strong id="stat-completed" class="stat-value">—</strong><span class="stat-caption">Already taken care of</span></article>
+                    <article class="stat-card stat-pending"><span class="stat-label">Pending</span><strong id="stat-pending" class="stat-value">—</strong><span class="stat-caption">Still on your list</span></article>
+                    <article class="stat-card stat-overdue"><span class="stat-label">Overdue</span><strong id="stat-overdue" class="stat-value">—</strong><span class="stat-caption">Ready for a fresh look</span></article>
+                    <article class="stat-card stat-high"><span class="stat-label"><span class="priority-dot dot-high"></span>High priority</span><strong id="stat-high" class="stat-value">—</strong><span class="stat-caption">Needs your attention</span></article>
+                    <article class="stat-card stat-medium"><span class="stat-label"><span class="priority-dot dot-medium"></span>Medium priority</span><strong id="stat-medium" class="stat-value">—</strong><span class="stat-caption">Keep it in view</span></article>
+                    <article class="stat-card stat-low"><span class="stat-label"><span class="priority-dot dot-low"></span>Low priority</span><strong id="stat-low" class="stat-value">—</strong><span class="stat-caption">When you have a moment</span></article>
+                </div>
+                <p id="dashboard-message" class="inline-message" role="status" aria-live="polite"></p>
+            </section>
+
+            <section class="dashboard-alerts" aria-labelledby="dashboard-alerts-heading">
+                <div class="dashboard-alerts-heading">
+                    <div>
+                        <p class="eyebrow">NEEDS YOUR ATTENTION</p>
+                        <h2 id="dashboard-alerts-heading">Task alerts</h2>
+                    </div>
+                    <a class="button button-outline" href="alerts.html">View alerts <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="dashboard-alert-counts" aria-live="polite">
+                    <p><strong id="dashboard-overdue-count">—</strong><span>Overdue</span></p>
+                    <p><strong id="dashboard-today-count">—</strong><span>Due today</span></p>
+                    <p><strong id="dashboard-tomorrow-count">—</strong><span>Due tomorrow</span></p>
+                </div>
+                <p id="dashboard-alert-message" class="inline-message" role="status" aria-live="polite">Loading alerts…</p>
+            </section>
+
+            <section id="tasklists-section" class="tasklists-section" aria-labelledby="tasklists-heading">
+                <div class="section-heading tasklist-heading-row">
+                    <div><p class="eyebrow">KEEP THINGS IN THEIR PLACE</p><h2 id="tasklists-heading">Task lists</h2></div>
+                    <button id="show-tasklist-form" class="button button-outline" type="button">＋ New Task List</button>
+                </div>
+                <form id="tasklist-form" class="tasklist-create-form" hidden>
+                    <label for="tasklist-name">Task list name</label>
+                    <input id="tasklist-name" name="name" type="text" placeholder="e.g. College" maxlength="100" required>
+                    <button id="create-tasklist-button" class="button button-dark" type="submit">Create list</button>
+                    <button id="cancel-tasklist-form" class="button button-quiet" type="button">Cancel</button>
+                </form>
+                <p id="tasklist-message" class="inline-message" role="status" aria-live="polite">Loading your task lists…</p>
+                <div id="tasklist-list" class="tasklist-grid" aria-live="polite"></div>
+            </section>
+
+            <section class="tasks-section" aria-labelledby="tasks-heading">
+                <div class="section-heading task-heading-row">
+                    <div><p class="eyebrow" id="task-kicker">YOUR LISTS, ALL HERE</p><h2 id="tasks-heading">My tasks</h2></div>
+                    <div class="task-heading-actions">
+                        <button id="show-task-form" class="button button-dark" type="button">＋ Add task</button>
+                        <form id="task-search-form" class="task-tools" role="search">
+                            <label class="visually-hidden" for="task-search">Search task titles</label>
+                            <input id="task-search" type="search" placeholder="Search tasks" autocomplete="off">
+                            <label class="visually-hidden" for="priority-filter">Filter by priority</label>
+                            <select id="priority-filter">
+                                <option value="">All priorities</option>
+                                <option value="HIGH">High</option>
+                                <option value="MEDIUM">Medium</option>
+                                <option value="LOW">Low</option>
+                            </select>
+                            <label class="visually-hidden" for="status-filter">Filter by status</label>
+                            <select id="status-filter">
+                                <option value="">All statuses</option>
+                                <option value="pending">Pending</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                            <button class="button button-outline" type="submit">Apply</button>
+                        </form>
+                    </div>
+                </div>
+                <p id="task-message" class="inline-message" role="status" aria-live="polite">Loading your tasks…</p>
+                <div id="task-list" class="task-list" aria-live="polite"></div>
+            </section>
+            <footer class="dashboard-footer"><span>TaskNest</span><span>Steady progress, at your pace.</span></footer>
+        </main>
+    </div>
+
+    <dialog id="task-dialog" class="task-dialog" aria-labelledby="task-dialog-heading">
+        <form id="task-form" class="task-dialog-form">
+            <div class="dialog-heading">
+                <div><p class="eyebrow">TASK DETAILS</p><h2 id="task-dialog-heading">Add a task</h2></div>
+                <button id="close-task-dialog" class="icon-button" type="button" aria-label="Close task form">×</button>
+            </div>
+            <label for="task-title">Task title</label>
+            <input id="task-title" name="title" type="text" maxlength="200" required placeholder="What needs doing?">
+            <label for="task-due-date">Due date</label>
+            <input id="task-due-date" name="dueDate" type="date" required>
+            <div class="form-two-column">
+                <div><label for="task-priority">Priority</label><select id="task-priority" name="priority" required><option value="LOW">Low</option><option value="MEDIUM">Medium</option><option value="HIGH">High</option></select></div>
+                <div><label for="task-list-select">Task list</label><select id="task-list-select" name="taskListId" required></select></div>
+            </div>
+            <p id="task-form-message" class="form-message" role="status" aria-live="polite"></p>
+            <div class="dialog-actions">
+                <button id="cancel-task-dialog" class="button button-quiet" type="button">Cancel</button>
+                <button id="save-task-button" class="button button-dark" type="submit">Add task</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="tasklist-dialog" class="task-dialog" aria-labelledby="tasklist-dialog-heading">
+        <form id="tasklist-edit-form" class="task-dialog-form">
+            <div class="dialog-heading">
+                <div><p class="eyebrow">TASK LIST</p><h2 id="tasklist-dialog-heading">Edit task list</h2></div>
+                <button id="close-tasklist-dialog" class="icon-button" type="button" aria-label="Close task list form">×</button>
+            </div>
+            <label for="tasklist-edit-name">Task list name</label>
+            <input id="tasklist-edit-name" name="name" type="text" maxlength="100" required>
+            <p id="tasklist-form-message" class="form-message" role="status" aria-live="polite"></p>
+            <div class="dialog-actions">
+                <button id="cancel-tasklist-dialog" class="button button-quiet" type="button">Cancel</button>
+                <button id="save-tasklist-button" class="button button-dark" type="submit">Save changes</button>
+            </div>
+        </form>
+    </dialog>
+</body>
+</html>
